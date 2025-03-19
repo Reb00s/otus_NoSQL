@@ -8,7 +8,7 @@
 + заполнить данными;
 + написать несколько запросов на выборку и обновление данных
 
-### Установка, запуск и подключение к mongodb (docker-compose)
+### Установка и запуск mongodb (docker-compose)
 1. Создаем файл docker-compose.yml и заполняем его следующим содержимым:
         
         version: '3.8'
@@ -30,7 +30,6 @@
 3. Для запуска контейрена с базой данных выполняем команду `mkdir mongo-shared && docker-compose up -d` из директории, где расположен файл docker-compose.yml. Вывод будет следующий:
 4. Что бы проверить, запущен ли контейнер можно выполнить команду 
 `docker ps | grep mongodb`, вывод будет следующий:
-5. Для подключения к mongodb используем утилиту `название`
 
 ### Заливаем тестовые данные в mongodb
 1. Выполним одну супер команду, которая скачает проект с тестовыми данными, распакует и зальет в  mongodb `wget -P mongo-shared/ https://github.com/neelabalan/mongodb-sample-dataset/archive/refs/heads/main.zip && unzip mongo-shared/main.zip -d mongo-shared/ && docker exec mongodb sh -c 'cd /data/files/mongodb-sample-dataset-main && ./script.sh 0.0.0.0 27017 root PaSSw0rd123!'`
