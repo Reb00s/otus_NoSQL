@@ -76,9 +76,9 @@
 5. Найти количество документы, где birthdate <= 01.01.1990 `db.customers.find({ birthdate: { $lte: ISODate("1990-01-01T00:00:00Z") } }).count()`
 6. Поиск с ограниченным отображением полей username, name, email `db.customers.find({ birthdate: { $lte: ISODate("1990-01-01T00:00:00Z") } }, { username: 1, name: 1, email: 1, _id: 0 })`
 7. Вывести все документы, где в поле accounts встречается одно из значений [575454, 86702, 771641, 327942] `db.customers.find({accounts : {$in : [575454, 86702, 771641, 327942]}})`
-##### А вот с рекурсивными запросами у меня не получилось, очень жаль
-6. Вывести все документы с отображением вложенных полей tier `db.customers.find({}, { "$**.tier": 1 })`
-7. Вывести все документы, где поле benefits существует `db.customers.find({ "tier_and_details.$**.benefits": { $exists: true } })`
+> #### А вот с рекурсивными запросами у меня не получилось, очень жаль
+> 1. Вывести все документы с отображением вложенных полей tier `db.customers.find({}, { "$**.tier": 1 })`
+> 2. Вывести все документы, где поле benefits существует `db.customers.find({ "tier_and_details.$**.benefits": { $exists: true } })`
 
 ### Создаем новую коллекцию и документы в mongodb
 #### Общие команды
