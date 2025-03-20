@@ -43,6 +43,49 @@
 2. Переключиться на базу данных test `use test`
 3. Просмотреть список коллекций `show collections`
 4. Посмотреть все индексы коллекции `db.users.getIndexes()`
+#### Делаем запросы
+1. Перейдем в пространство sample_analytics `use sample_analytics`
+2. Посмотрим на список коллекций `show collections`
+3. Выведем все документы из коллекции customers `db.customers.find()`, структура документа будет следующего вида:
+```
+  {
+    _id: ObjectId('5ca4bbcea2dd94ee58162a7c'),
+    username: 'michael58',
+    name: 'Christine Douglas',
+    address: 'USNV Chavez\nFPO AP 78727',
+    birthdate: ISODate('1989-12-25T23:58:01.000Z'),
+    email: 'aaron99@yahoo.com',
+    accounts: [ 177069, 233104, 671035, 575454, 285919, 947160 ],
+    tier_and_details: {
+      '14540f8bc96947fdb620f52768acce16': {
+        tier: 'Gold',
+        benefits: [ 'sports tickets' ],
+        active: true,
+        id: '14540f8bc96947fdb620f52768acce16'
+      },
+      '6f4836805a744592a2193a45e9801038': {
+        tier: 'Silver',
+        benefits: [ 'car rental insurance', 'concert tickets' ],
+        active: true,
+        id: '6f4836805a744592a2193a45e9801038'
+      }
+    }
+  }
+```
+4. Найдем все документы, где в `accounts` записаны только 3 значения, для этого выполним команду `db.customers.find({ accounts: { $size: 3 } })`, что бы посчитать сколько таких докуменов `db.customers.find({ accounts: { $size: 3 } }).count()`
+5. Найти количество документы, где birthdate <= 01.01.1990 `db.customers.find({ birthdate: { $lte: ISODate("1990-01-01T00:00:00Z") } }).count()`
+6. Поиск с ограниченным отображением полей username, name, email `db.customers.find({ birthdate: { $lte: ISODate("1990-01-01T00:00:00Z") } }, { username: 1, name: 1, email: 1, _id: 0 })`
+7. Вывести все документы, где в поле accounts встречается одно из значений [575454, 86702, 771641, 327942] `db.customers.find({accounts : {$in : [575454, 86702, 771641, 327942]}})`
+##### А вот с рекурсивными запросами у меня не получилось, очень жаль
+6. Вывести все документы с отображением вложенных полей tier `db.customers.find({}, { "$**.tier": 1 })`
+7. Вывести все документы, где поле benefits существует `db.customers.find({ "tier_and_details.$**.benefits": { $exists: true } })`
+
+### Создаем новую коллекцию и документы в mongodb
+#### Общие команды
+1. Просмотреть список всех баз данных `show databases`
+2. Переключиться на базу данных test `use test`
+3. Просмотреть список коллекций `show collections`
+4. Посмотреть все индексы коллекции `db.users.getIndexes()`
 #### Создаем новую коллекцию с индексом
 5. Создадим новую коллекцию users `db.createCollection("users")`
 6. Для быстрого find, update, delete создадим уникальный индекс по полю `email`, для этого выполним команду `db.users.createIndex({ email: 1 }, { unique: true })`
